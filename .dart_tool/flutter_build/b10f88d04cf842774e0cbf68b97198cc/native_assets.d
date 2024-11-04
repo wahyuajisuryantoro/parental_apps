@@ -1,0 +1,1 @@
+ /Users/triastuti/Documents/project/flutter/parental_apps/.dart_tool/flutter_build/b10f88d04cf842774e0cbf68b97198cc/native_assets.yaml: 
