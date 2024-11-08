@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:parental_apps/app/utils/app_colors.dart';
 import '../controllers/login_controller.dart';
-import 'package:parental_apps/app/utils/app_responsive.dart'; 
+import 'package:parental_apps/app/utils/app_responsive.dart';
 
 class LoginView extends GetView<LoginController> {
   const LoginView({super.key});
@@ -11,32 +12,23 @@ class LoginView extends GetView<LoginController> {
     final LoginController controller = Get.put(LoginController());
 
     return Scaffold(
+      backgroundColor: AppColors.white,
       appBar: AppBar(
-        title: Center(
-          child: Text(
-            'Halaman Login',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: AppResponsive.width(context, 5), 
-            ),
-          ),
-        ),
-        backgroundColor: const Color.fromARGB(255, 41, 46, 91),
-        toolbarHeight: AppResponsive.height(context, 10), 
+        backgroundColor: AppColors.white,
+        toolbarHeight: AppResponsive.height(context, 10),
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(AppResponsive.width(context, 5)), 
+          padding: EdgeInsets.all(AppResponsive.width(context, 5)),
           child: Column(
             children: [
               SizedBox(
-                height: AppResponsive.height(context, 5),
+                height: AppResponsive.height(context, 10),
               ),
               Image.asset(
                 'assets/images/logo-presensimu.png',
                 fit: BoxFit.cover,
-                height: AppResponsive.height(context, 10), 
+                height: AppResponsive.height(context, 10),
               ),
               SizedBox(height: AppResponsive.height(context, 5)),
               TextFormField(
@@ -74,30 +66,29 @@ class LoginView extends GetView<LoginController> {
               SizedBox(
                 height: AppResponsive.height(context, 2),
               ),
-              
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      Get.toNamed('/register'); 
+                      Get.toNamed('/register');
                     },
                     style: ElevatedButton.styleFrom(
                       minimumSize: Size(
                         AppResponsive.width(context, 35),
                         AppResponsive.height(context, 6),
                       ),
-                      backgroundColor: const Color.fromARGB(255, 41, 46, 91),
+                      backgroundColor: AppColors.blueLight,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
-                    ), 
+                    ),
                     child: Text(
                       'Register',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: AppResponsive.width(context, 4), 
+                        fontSize: AppResponsive.width(context, 4),
                       ),
                     ),
                   ),
@@ -113,7 +104,7 @@ class LoginView extends GetView<LoginController> {
                         AppResponsive.width(context, 35),
                         AppResponsive.height(context, 6),
                       ),
-                      backgroundColor: const Color.fromARGB(255, 41, 46, 91),
+                      backgroundColor: AppColors.blueLight,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -123,7 +114,7 @@ class LoginView extends GetView<LoginController> {
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: AppResponsive.width(context, 4), 
+                        fontSize: AppResponsive.width(context, 4),
                       ),
                     ),
                   ),

@@ -21,3 +21,4 @@ class AppResponsive {
     return MediaQuery.of(context).size.width >= 1200;
   }
 }
+ 

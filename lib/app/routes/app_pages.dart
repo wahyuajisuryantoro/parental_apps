@@ -2,10 +2,14 @@ import 'package:get/get.dart';
 
 import '../modules/dashboard/bindings/dashboard_binding.dart';
 import '../modules/dashboard/views/dashboard_view.dart';
+import '../modules/detail_siswa/bindings/detail_siswa_binding.dart';
+import '../modules/detail_siswa/views/detail_siswa_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/pengajuan_absensi/bindings/pengajuan_absensi_binding.dart';
+import '../modules/pengajuan_absensi/views/pengajuan_absensi_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
 import '../modules/register/bindings/register_binding.dart';
@@ -43,6 +47,16 @@ class AppPages {
       name: _Paths.PROFILE,
       page: () => const ProfileView(),
       binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_SISWA,
+      page: () => const DetailSiswaView(),
+      binding: DetailSiswaBinding(),
+    ),
+    GetPage(
+      name: _Paths.PENGAJUAN_ABSENSI,
+      page: () => const PengajuanAbsensiView(),
+      binding: PengajuanAbsensiBinding(),
     ),
   ];
 }
