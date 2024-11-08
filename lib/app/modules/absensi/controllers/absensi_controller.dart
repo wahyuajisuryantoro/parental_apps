@@ -1,7 +1,9 @@
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:intl/intl.dart';
+import 'dart:convert';
+import 'package:parental_apps/app/model/model_anak.dart';
 import 'package:parental_apps/app/model/model_presensi.dart';
 
 enum AttendanceStatus { hadir, izin, sakit }
@@ -9,104 +11,82 @@ enum AttendanceStatus { hadir, izin, sakit }
 class AbsensiController extends GetxController {
   var attendanceData = RxMap<DateTime, AttendanceStatus>();
   final idSiswa = 0.obs;
-
-  final String baseUrl = 'http://mi-paremono.presensimu.com/api/get_presensi_siswa';
+  Rx<Anak?> anak = Rx<Anak?>(null);
+  final String baseUrl = 'http://mi-paremono.presensimu.com/api';
 
   @override
   void onInit() {
     super.onInit();
+    // Ambil id_siswa dari Get.arguments yang diterima melalui NavigationController
     idSiswa.value = Get.arguments?['id_siswa'] ?? 0;
-    print('Received id_siswa: ${idSiswa.value}'); // Debug to confirm id_siswa
+
     if (idSiswa.value != 0) {
-      fetchPresensiByIdSiswa(idSiswa.value);
+      fetchSiswaDetail(idSiswa.value); // Panggil endpoint detail siswa
+      fetchPresensiByIdSiswa(idSiswa.value); // Ambil data presensi siswa
     } else {
-      print('Error: id_siswa is 0');
+      print("Error: id_siswa tidak ditemukan di arguments.");
     }
   }
 
-  DateTime normalizeDateTime(String dateStr) {
-    List<String> parts = dateStr.split(' / ');
-    if (parts.length != 3) {
-      print('Invalid date format: $dateStr');
-      return DateTime.now();
-    }
+  // Ambil detail siswa menggunakan endpoint get_siswa_detail
+  Future<void> fetchSiswaDetail(int idSiswa) async {
+    final url = Uri.parse('$baseUrl/get_siswa_detail/$idSiswa');
     try {
-      int day = int.parse(parts[0].trim());
-      int month = int.parse(parts[1].trim());
-      int year = 2000 + int.parse(parts[2].trim());
-      return DateTime(year, month, day);
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        if (data['status'] == 'success') {
+          anak.value = Anak.fromJson(data['data']);
+          print('Data anak berhasil diambil: ${anak.value?.namaSiswa}');
+        } else {
+          print("Error fetching siswa detail: ${data['message']}");
+        }
+      } else {
+        print("HTTP request failed with status: ${response.statusCode}");
+      }
     } catch (e) {
-      print('Error parsing date components: $e');
-      return DateTime.now();
+      print("Error fetching siswa detail: $e");
     }
   }
 
+  // Ambil data presensi siswa berdasarkan id_siswa
   Future<void> fetchPresensiByIdSiswa(int idSiswa) async {
-    final url = Uri.parse(baseUrl);
+    final url = Uri.parse('$baseUrl/get_presensi_siswa');
     try {
-      // Mengirimkan request POST dengan id_siswa di body
       final response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'id_siswa': idSiswa}),
       );
 
-      print('API Response Status Code: ${response.statusCode}');
-      print('API Response Body: ${response.body}');
-
       if (response.statusCode == 200) {
         final jsonResponse = json.decode(response.body);
         if (jsonResponse['status'] == 'success') {
           List<dynamic> data = jsonResponse['data'];
-          print('Found ${data.length} attendance records');
-
           attendanceData.clear();
-
           for (var item in data) {
-            try {
-              DateTime date = normalizeDateTime(item['tanggal']);
-              String keterangan = item['keterangan'].toString().toLowerCase().trim();
-
-              print('Processing date: $date, keterangan: $keterangan');
-
-              AttendanceStatus? status;
-              if (keterangan == 'hadir') {
-                status = AttendanceStatus.hadir;
-              } else if (keterangan == 'izin') {
-                status = AttendanceStatus.izin;
-              } else if (keterangan == 'sakit') {
-                status = AttendanceStatus.sakit;
-              }
-
-              if (status != null) {
-                attendanceData[date] = status;
-                print('Stored attendance for $date: $status');
-              } else {
-                print('Invalid keterangan: $keterangan');
-              }
-            } catch (e) {
-              print('Error processing record: $e');
-              print('Record: $item');
+            DateTime date = DateFormat('dd / MM / yy').parse(item['tanggal']);
+            String keterangan = item['keterangan'].toString().toLowerCase().trim();
+            AttendanceStatus? status;
+            if (keterangan == 'hadir') {
+              status = AttendanceStatus.hadir;
+            } else if (keterangan == 'izin') {
+              status = AttendanceStatus.izin;
+            } else if (keterangan == 'sakit') {
+              status = AttendanceStatus.sakit;
+            }
+            if (status != null) {
+              attendanceData[date] = status;
             }
           }
-
-          print('Final attendance data:');
-          attendanceData.forEach((key, value) {
-            print('Date: $key, Status: $value');
-          });
-
           attendanceData.refresh();
-          update();
-        } else {
-          print('API returned error status: ${jsonResponse['status']}');
-          print('API error message: ${jsonResponse['message']}');
-          Get.snackbar('Error', jsonResponse['message'] ?? 'Unknown error');
         }
       } else {
         print('HTTP request failed with status: ${response.statusCode}');
       }
     } catch (e) {
-      print('Network or parsing error: $e');
+      print('Error fetching presensi: $e');
     }
   }
 }

@@ -19,18 +19,14 @@ class PengajuanAbsensiView extends GetView<PengajuanAbsensiController> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Text(
-            'Pengajuan Absensi',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: AppResponsive.width(context, 5),
-            ),
-          ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Text('Pengajuan Absensi', style: AppTextStyle.blackHeading2),
+        centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios, color: AppColors.black),
+          onPressed: () => Get.back(),
         ),
-        backgroundColor: AppColors.blueLight,
-        toolbarHeight: AppResponsive.height(context, 10),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -140,46 +136,46 @@ class PengajuanAbsensiView extends GetView<PengajuanAbsensiController> {
               ),
               SizedBox(height: AppResponsive.height(context, 4)),
 
-              // Document upload section
-              Center(
-                child: GestureDetector(
-                  onTap: () => controller.pickDokumen(),
-                  child: Container(
-                    width: AppResponsive.width(context, 70),
-                    height: AppResponsive.height(context, 10),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                          color: AppColors.grayLight, style: BorderStyle.solid),
-                      borderRadius: BorderRadius.circular(10),
-                      color: AppColors.white,
-                    ),
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(EvaIcons.fileOutline,
-                              color: AppColors.blueLight, size: 30),
-                          SizedBox(width: AppResponsive.width(context, 2)),
-                          Obx(
-                            () => Flexible(
-                              child: Text(
-                                controller.dokumenFile.value != null
-                                    ? 'Dokumen: ${basename(controller.dokumenFile.value!.path)}'
-                                    : 'Upload Dokumen',
-                                style: AppTextStyle.caption
-                                    .copyWith(color: AppColors.textSecondary),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: AppResponsive.height(context, 4)),
+              // // Document upload section
+              // Center(
+              //   child: GestureDetector(
+              //     onTap: () => controller.pickDokumen(),
+              //     child: Container(
+              //       width: AppResponsive.width(context, 70),
+              //       height: AppResponsive.height(context, 10),
+              //       decoration: BoxDecoration(
+              //         border: Border.all(
+              //             color: AppColors.grayLight, style: BorderStyle.solid),
+              //         borderRadius: BorderRadius.circular(10),
+              //         color: AppColors.white,
+              //       ),
+              //       child: Center(
+              //         child: Row(
+              //           mainAxisAlignment: MainAxisAlignment.center,
+              //           children: [
+              //             Icon(EvaIcons.fileOutline,
+              //                 color: AppColors.blueLight, size: 30),
+              //             SizedBox(width: AppResponsive.width(context, 2)),
+              //             Obx(
+              //               () => Flexible(
+              //                 child: Text(
+              //                   controller.dokumenFile.value != null
+              //                       ? 'Dokumen: ${basename(controller.dokumenFile.value!.path)}'
+              //                       : 'Upload Dokumen',
+              //                   style: AppTextStyle.caption
+              //                       .copyWith(color: AppColors.textSecondary),
+              //                   maxLines: 1,
+              //                   overflow: TextOverflow.ellipsis,
+              //                 ),
+              //               ),
+              //             ),
+              //           ],
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              // SizedBox(height: AppResponsive.height(context, 4)),
 
               // Submit button
               Center(

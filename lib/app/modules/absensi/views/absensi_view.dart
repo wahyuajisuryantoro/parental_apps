@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:parental_apps/app/routes/app_pages.dart';
+import 'package:parental_apps/app/widgets/bottom_navigation_bar/controller/navigation_controller.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:parental_apps/app/utils/app_colors.dart';
 import 'package:parental_apps/app/utils/app_text.dart';
 import 'package:parental_apps/app/utils/app_responsive.dart';
-import 'package:intl/intl.dart';
 import '../controllers/absensi_controller.dart';
 
 class AbsensiView extends GetView<AbsensiController> {
@@ -28,11 +29,53 @@ class AbsensiView extends GetView<AbsensiController> {
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: AppColors.white),
-          onPressed: () => Get.back(),
+          onPressed: () {
+            final navigationController = Get.find<NavigationController>();
+            navigationController.currentIndex.value = 0;
+            Get.offAllNamed(Routes.DASHBOARD);
+          },
         ),
       ),
       body: Column(
         children: [
+          Obx(() {
+            final anak = controller.anak.value;
+            if (anak == null) {
+              return Center(child: CircularProgressIndicator());
+            } else {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    radius: AppResponsive.width(context, 12),
+                    backgroundImage: NetworkImage(anak.fotoUrl),
+                    onBackgroundImageError: (error, stackTrace) {
+                      const AssetImage('assets/images/avatar_placeholder.jpg');
+                    },
+                  ),
+                  SizedBox(height: AppResponsive.height(context, 2)),
+                  Text(
+                    anak.namaSiswa,
+                    style: AppTextStyle.heading2.copyWith(
+                      color: AppColors.white,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: AppResponsive.height(context, 1)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'RFID: ${anak.rfid}',
+                        style: AppTextStyle.captionWhite,
+                      ),
+                    ],
+                  ),
+                ],
+              );
+            }
+          }),
+          SizedBox(height: AppResponsive.height(context, 1)),
           Expanded(
             child: Container(
               decoration: BoxDecoration(
@@ -56,7 +99,6 @@ class AbsensiView extends GetView<AbsensiController> {
                   physics: const BouncingScrollPhysics(),
                   child: Column(
                     children: [
-                      // Calendar Widget
                       Padding(
                         padding: EdgeInsets.symmetric(
                           horizontal: AppResponsive.width(context, 4),
@@ -69,8 +111,6 @@ class AbsensiView extends GetView<AbsensiController> {
                           focusedDay: focusedDay.value,
                           currentDay: DateTime.now(),
                           calendarFormat: CalendarFormat.month,
-
-                          // Header Styling
                           headerStyle: HeaderStyle(
                             formatButtonVisible: false,
                             titleCentered: true,
@@ -80,8 +120,6 @@ class AbsensiView extends GetView<AbsensiController> {
                             rightChevronIcon: const Icon(Icons.chevron_right,
                                 color: AppColors.blueLight),
                           ),
-
-                          // Calendar Style
                           calendarStyle: CalendarStyle(
                             outsideDaysVisible: false,
                             weekendTextStyle: AppTextStyle.caption
@@ -101,8 +139,6 @@ class AbsensiView extends GetView<AbsensiController> {
                               shape: BoxShape.circle,
                             ),
                           ),
-
-                          // Days of Week Style
                           daysOfWeekStyle: DaysOfWeekStyle(
                             weekdayStyle: AppTextStyle.caption.copyWith(
                               fontSize: AppResponsive.width(context, 3.5),
@@ -115,8 +151,6 @@ class AbsensiView extends GetView<AbsensiController> {
                               color: AppColors.redLight,
                             ),
                           ),
-
-                          // Calendar Builders
                           calendarBuilders: CalendarBuilders(
                             defaultBuilder: (context, day, focusedDay) {
                               return Obx(() {
@@ -146,8 +180,6 @@ class AbsensiView extends GetView<AbsensiController> {
                               });
                             },
                           ),
-
-                          // Calendar Callbacks
                           onPageChanged: (newFocusedDay) {
                             focusedDay.value = newFocusedDay;
                           },
@@ -158,8 +190,6 @@ class AbsensiView extends GetView<AbsensiController> {
                           },
                         ),
                       ),
-
-                      // Legend Section
                       Container(
                         margin: EdgeInsets.symmetric(
                           horizontal: AppResponsive.width(context, 4),
@@ -184,10 +214,7 @@ class AbsensiView extends GetView<AbsensiController> {
                           children: [
                             Text(
                               'Keterangan',
-                              style: AppTextStyle.heading2.copyWith(
-                                fontSize: AppResponsive.width(context, 4),
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: AppTextStyle.blackHeading2
                             ),
                             SizedBox(height: AppResponsive.height(context, 2)),
                             Row(
@@ -204,8 +231,6 @@ class AbsensiView extends GetView<AbsensiController> {
                           ],
                         ),
                       ),
-
-                      // Summary Section
                       Container(
                         margin: EdgeInsets.symmetric(
                           horizontal: AppResponsive.width(context, 4),
@@ -237,7 +262,7 @@ class AbsensiView extends GetView<AbsensiController> {
                             children: [
                               Text(
                                 'Ringkasan Bulan Ini',
-                                style: AppTextStyle.heading2.copyWith(
+                                style: AppTextStyle.blackHeading2.copyWith(
                                   fontSize: AppResponsive.width(context, 4),
                                   fontWeight: FontWeight.bold,
                                 ),

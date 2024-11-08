@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 
 import '../modules/absensi/bindings/absensi_binding.dart';
 import '../modules/absensi/views/absensi_view.dart';
@@ -29,41 +30,65 @@ class AppPages {
       name: _Paths.HOME,
       page: () => const HomeView(),
       binding: HomeBinding(),
+      transition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
     ),
     GetPage(
       name: _Paths.LOGIN,
       page: () => const LoginView(),
       binding: LoginBinding(),
+      transition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
     ),
     GetPage(
       name: _Paths.DASHBOARD,
       page: () => const DashboardView(),
       binding: DashboardBinding(),
+      transition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
     ),
     GetPage(
       name: _Paths.REGISTER,
       page: () => const RegisterView(),
       binding: RegisterBinding(),
+      transition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
     ),
     GetPage(
       name: _Paths.PROFILE,
       page: () => const ProfileView(),
       binding: ProfileBinding(),
+      transition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
     ),
     GetPage(
       name: _Paths.DETAIL_SISWA,
       page: () => const DetailSiswaView(),
       binding: DetailSiswaBinding(),
+      transition: Transition.rightToLeftWithFade,
+      transitionDuration: Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
     ),
     GetPage(
       name: _Paths.PENGAJUAN_ABSENSI,
       page: () => const PengajuanAbsensiView(),
       binding: PengajuanAbsensiBinding(),
+      transition: Transition.rightToLeftWithFade,
+      transitionDuration: Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
     ),
     GetPage(
       name: _Paths.ABSENSI,
       page: () => const AbsensiView(),
       binding: AbsensiBinding(),
+      transition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
     ),
   ];
 }

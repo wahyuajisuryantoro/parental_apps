@@ -8,7 +8,6 @@ import 'package:parental_apps/app/widgets/bottom_navigation_bar/controller/navig
 import 'package:parental_apps/app/modules/dashboard/controllers/dashboard_controller.dart';
 
 class CustomNavigationBar extends StatelessWidget {
-  // Dapatkan instance dari NavigationController
   final NavigationController navigationController = Get.find();
   final DashboardController dashboardController = Get.find();
 
@@ -31,9 +30,8 @@ class CustomNavigationBar extends StatelessWidget {
             currentIndex: navigationController.currentIndex.value,
             onTap: (index) {
               if (index == 1) {
-                // Kirim `id_siswa` dari dashboard saat membuka halaman absensi
                 int? idSiswa = dashboardController.anakList.isNotEmpty 
-                    ? dashboardController.anakList[0].id // Pilih ID anak pertama atau logika lain
+                    ? dashboardController.anakList[0].id
                     : null;
                 navigationController.changePage(index, idSiswa: idSiswa);
               } else {
@@ -64,14 +62,14 @@ class CustomNavigationBar extends StatelessWidget {
               ),
               _buildNavItem(
                 context,
-                icon: EvaIcons.personOutline,
-                label: "Profil",
+                icon: EvaIcons.logInOutline,
+                label: "Login",
                 index: 2,
               ),
               _buildNavItem(
                 context,
-                icon: EvaIcons.logInOutline,
-                label: "Login",
+                icon: EvaIcons.personOutline,
+                label: "Profile",
                 index: 3,
               ),
             ],

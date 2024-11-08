@@ -7,8 +7,8 @@ class NavigationController extends GetxController {
   final List<String> routes = [
     Routes.DASHBOARD,
     Routes.ABSENSI,
-    Routes.PROFILE,
     Routes.LOGIN,
+    Routes.PROFILE,
   ];
 
   void changePage(int index, {int? idSiswa}) {

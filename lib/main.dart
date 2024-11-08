@@ -9,10 +9,15 @@ import 'app/routes/app_pages.dart';
 import 'app/modules/login/controllers/login_controller.dart';
 
 void main() async {
-  Get.put(NavigationController());
   WidgetsFlutterBinding.ensureInitialized();
-  await GetStorage.init();
+  
+  // Inisialisasi format tanggal lokal sebelum menginisialisasi controller
   await initializeDateFormatting('id', null);
+  await GetStorage.init();
+
+  // Inisialisasi controller setelah `initializeDateFormatting`
+  Get.put(NavigationController());
+  Get.put(DashboardController()); 
 
   runApp(MyApp());
 }

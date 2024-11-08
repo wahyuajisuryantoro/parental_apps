@@ -59,6 +59,11 @@ class DashboardController extends GetxController {
     }
   }
 
+  void saveOrangTuaId(int orangTuaId) {
+    final storage = GetStorage();
+    storage.write('orangTuaId', orangTuaId);
+  }
+
   void fetchDashboardData() async {
     try {
       final storage = GetStorage();
