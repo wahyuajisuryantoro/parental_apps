@@ -50,6 +50,7 @@ dependencies:
   permission_handler: ^11.3.1
   dropdown_button2: ^2.3.9
   syncfusion_flutter_datepicker: ^27.1.58
+  table_calendar: ^3.1.2
 
 dev_dependencies:
   flutter_test:

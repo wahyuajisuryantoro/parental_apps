@@ -6,7 +6,7 @@ import 'package:parental_apps/app/modules/dashboard/controllers/dashboard_contro
 import 'package:parental_apps/app/utils/app_colors.dart';
 import 'package:parental_apps/app/utils/app_responsive.dart';
 import 'package:parental_apps/app/utils/app_text.dart';
-import 'package:parental_apps/app/widgets/custom_navigation_bar.dart';
+import 'package:parental_apps/app/widgets/bottom_navigation_bar/custom_navigation_bar.dart';
 
 class DashboardView extends StatelessWidget {
   const DashboardView({super.key});
@@ -320,10 +320,7 @@ class DashboardView extends StatelessWidget {
           }
         }),
       ),
-      bottomNavigationBar: CustomNavigationBar(
-        currentIndex: 0,
-        onTap: (index) {},
-      ),
+      bottomNavigationBar: CustomNavigationBar(),
     );
   }
 

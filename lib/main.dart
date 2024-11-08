@@ -3,10 +3,13 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:parental_apps/app/modules/dashboard/controllers/dashboard_controller.dart';
+import 'package:parental_apps/app/widgets/bottom_navigation_bar/controller/navigation_controller.dart';
 import 'app/routes/app_pages.dart';
 import 'app/modules/login/controllers/login_controller.dart';
 
 void main() async {
+  Get.put(NavigationController());
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
   await initializeDateFormatting('id', null);
@@ -39,7 +42,7 @@ class InitialScreen extends StatelessWidget {
         } else if (snapshot.hasError) {
           return Center(child: Text("Terjadi kesalahan"));
         } else {
-          return Container(); 
+          return Container();
         }
       },
     );

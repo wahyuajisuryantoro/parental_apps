@@ -434,6 +434,12 @@
       "languageVersion": "3.3"
     },
     {
+      "name": "simple_gesture_detector",
+      "rootUri": "file:///Users/triastuti/.pub-cache/hosted/pub.dev/simple_gesture_detector-0.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "sky_engine",
       "rootUri": "file:///Users/triastuti/Documents/lama/project/flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
@@ -480,6 +486,12 @@
       "rootUri": "file:///Users/triastuti/.pub-cache/hosted/pub.dev/syncfusion_flutter_datepicker-27.1.58",
       "packageUri": "lib/",
       "languageVersion": "2.17"
+    },
+    {
+      "name": "table_calendar",
+      "rootUri": "file:///Users/triastuti/.pub-cache/hosted/pub.dev/table_calendar-3.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
     },
     {
       "name": "term_glyph",
@@ -560,7 +572,7 @@
       "languageVersion": "3.5"
     }
   ],
-  "generated": "2024-11-06T06:17:03.151963Z",
+  "generated": "2024-11-08T02:54:00.261329Z",
   "generator": "pub",
   "generatorVersion": "3.5.3",
   "flutterRoot": "file:///Users/triastuti/Documents/lama/project/flutter",
